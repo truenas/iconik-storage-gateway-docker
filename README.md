@@ -1,3 +1,10 @@
+
+# Notice
+
+This is an TrueNAS fork of the original iconik-storage-gateway-docker repo. It is only intended
+as a staging location for docker image builds. 
+
+
 # Usage examples
 Build the image first:
 `$ docker build -t docker_isg:latest .`
