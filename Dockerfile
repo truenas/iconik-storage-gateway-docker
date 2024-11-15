@@ -14,7 +14,8 @@ RUN /tmp/install-iconik.sh
 RUN \
     chmod 777 -R /opt/iconik && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    rm /tmp/install-iconik.sh
 
 VOLUME /var/iconik/iconik_storage_gateway/data
 

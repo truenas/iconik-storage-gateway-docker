@@ -72,7 +72,7 @@ jobs:
         run: |
           sudo ./install-iconik.sh
           echo "Getting version"
-          echo icoik-storage-gateway --version
+          echo iconik-storage-gateway --version
           version=$(iconik-storage-gateway --version | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
           echo "Version: ${version}"
           echo "version=${version}" >> $GITHUB_OUTPUT
