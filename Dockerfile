@@ -1,19 +1,22 @@
 FROM ubuntu:jammy
-MAINTAINER iconik Media AB <info@iconik.io>
+
+LABEL org.opencontainers.image.authors="dev@ixsystems.com"
+
 RUN apt-get update && \
     apt-get install -y ffmpeg imagemagick poppler-utils ghostscript dcraw exiftool locales && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+ENV LANG=en_US.utf8
 
-ARG REPO_BASE=https://packages.iconik.io/deb/ubuntu
+COPY ./install-iconik.sh /tmp/install-iconik.sh
+RUN /tmp/install-iconik.sh
+RUN \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /tmp/install-iconik.sh
 
-RUN apt-get update && apt-get install -y wget gnupg && \
-    wget -O - ${REPO_BASE}/dists/jammy/iconik_package_repos_pub.asc | apt-key add - && \
-    echo "deb [trusted=yes] ${REPO_BASE} ./jammy main" > /etc/apt/sources.list.d/iconik.list && \
-    apt-get update && \
-    apt-get install -y iconik-storage-gateway
 VOLUME /var/iconik/iconik_storage_gateway/data
-CMD /opt/iconik/iconik_storage_gateway/iconik_storage_gateway \
+
+ENTRYPOINT /opt/iconik/iconik_storage_gateway/iconik_storage_gateway \
     --iconik-url=${ICONIK_URL:-https://app-lb.iconik.io/} \
     --auth-token=${AUTH_TOKEN} \
     --app-id=${APP_ID} \
