@@ -69,6 +69,7 @@ jobs:
 
       - name: Get Version
         id: get_version
+        shell: bash
         run: |
           sudo ./install-iconik.sh
           echo "Getting version"
