@@ -12,7 +12,6 @@ ARG REPO_BASE=https://packages.iconik.io/deb/ubuntu
 COPY ./install-iconik.sh /tmp/install-iconik.sh
 RUN /tmp/install-iconik.sh
 RUN \
-    chmod 777 -R /opt/iconik && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm /tmp/install-iconik.sh
