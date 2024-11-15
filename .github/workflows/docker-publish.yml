@@ -77,7 +77,10 @@ jobs:
           version=$(/opt/iconik/iconik_storage_gateway/iconik_storage_gateway --version | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
           echo "Version: ${version}"
           echo "version=${version}" >> $GITHUB_OUTPUT
-          [ -z "$version" ] && { echo "Failed to get version"; exit 1; }
+          if [ -z "$version" ]; then
+            echo "Failed to get version"
+            exit 1
+          fi
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
