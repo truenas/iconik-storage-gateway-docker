@@ -14,6 +14,10 @@ RUN \
     rm -rf /var/lib/apt/lists/* && \
     rm /tmp/install-iconik.sh
 
+# Allows any user to write files like log files.
+# Data permissions will be different for data directory,
+# as it will be a bind mount.
+RUN chmod 777 -R /var/iconik/iconik_storage_gateway
 VOLUME /var/iconik/iconik_storage_gateway/data
 
 ENTRYPOINT /opt/iconik/iconik_storage_gateway/iconik_storage_gateway \
