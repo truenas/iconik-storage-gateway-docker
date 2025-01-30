@@ -2,6 +2,10 @@ FROM ubuntu:jammy
 
 LABEL org.opencontainers.image.authors="dev@ixsystems.com"
 
+ARG CACHE_BUSTER_KEY
+ENV CACHE_BUSTER_KEY=$CACHE_BUSTER_KEY
+RUN echo "CACHE_BUSTER_KEY=[$CACHE_BUSTER_KEY]"
+
 RUN apt-get update && \
     apt-get install -y ffmpeg imagemagick poppler-utils ghostscript dcraw exiftool locales && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
